@@ -5,7 +5,7 @@
 [![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Status](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge)](https://github.com/)
 
-**TaskFlow** is a sophisticated, full-stack task management ecosystem designed for the modern web. Developed as a **Mobile App Developer Internship Assignment**, this project pushes the boundaries of traditional web apps by delivering a **Native-App Feel** through glassmorphic design, fluid animations, and a robust RESTful architecture.
+**TaskFlow** is a sophisticated, full-stack task management ecosystem designed for the modern web. Developed as a **Mobile App Developer Internship Assignment**, this project delivers a bold **Neo-Brutalist UX** through high-contrast surfaces, thick borders, and hard tactile shadows.
 
 ---
 
@@ -16,8 +16,8 @@ In an era of instant gratification, TaskFlow focuses on **Performance** and **Ex
 
 ## 🚀 Key Features
 
-- **🎨 Modern Glassmorphism**: High-end UI featuring blurred surfaces, vibrant gradients, and a sleek dark-mode aesthetic.
-- **✨ Fluid Animations**: Powered by **Framer Motion**, including shared layout transitions and entry/exit presence.
+- **🎨 Neo-Brutalist Aesthetics**: High-end UI featuring bold contrast, 2px solid strokes, and sharp geometric surfaces.
+- **✨ Tactile Interactions**: Physical-feel feedback with hard drop shadows and "push-down" button states.
 - **🏷️ Productive Logic**: 
   - **Dynamic Priority**: Categorize tasks as Low, Medium, or High (visual-coded).
   - **Smart Labels**: Tag tasks with custom categories (Work, Personal, Health).
@@ -93,7 +93,7 @@ npm run dev
 ## 📬 Final Handover Info
 - **Developer**: Sai Abhiram Bussa
 - **Position**: Mobile App Developer Intern (Candidate)
-- **Live Application**: [https://comfy-taffy-5f4130.netlify.app/](https://comfy-taffy-5f4130.netlify.app/)
+- **Live Application**: [https://task-manager-assignment-trawlii.netlify.app/](https://task-manager-assignment-trawlii.netlify.app/)
 - **Backend API**: [https://task-manager-app-vxhp.onrender.com/api/tasks/](https://task-manager-app-vxhp.onrender.com/api/tasks/)
 
 ---
