@@ -40,7 +40,6 @@ body {
 }
 
 header {
-  text-align: center;
   margin-bottom: 40px;
 }
 
@@ -87,6 +86,19 @@ header h1 {
   border: 1px solid var(--border);
   text-align: center;
   backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.stat-card.active {
+  border-color: var(--primary);
+  background: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
 }
 
 .stat-card span {
@@ -102,6 +114,78 @@ header h1 {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+/* Central Action Area */
+.action-area {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-add-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.hero-add-btn:hover::before {
+  left: 100%;
+}
+
+.hero-add-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary);
+  box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+}
+
+.plus-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+}
+
+.view-header {
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.view-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.9;
 }
 
 /* Glassmorphic Form */
@@ -265,31 +349,6 @@ button[type="submit"]:hover {
 
 .completed-task h3 {
   text-decoration: line-through;
-}
-
-/* Floating Action Button */
-.fab {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  font-size: 30px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: 100;
-}
-
-.fab:hover {
-  transform: scale(1.1) rotate(90deg);
 }
 
 /* Modal Overlay */

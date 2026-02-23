@@ -7,6 +7,7 @@ import './App.css'
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [filter, setFilter] = useState('all'); // all, pending, completed
 
   useEffect(() => {
     fetchTasks();
@@ -56,6 +57,16 @@ function App() {
     pending: tasks.filter(t => !t.completed).length
   };
 
+  const priorityOrder = { high: 0, medium: 1, low: 2 };
+
+  const sortedAndFilteredTasks = tasks
+    .filter(task => {
+      if (filter === 'pending') return !task.completed;
+      if (filter === 'completed') return task.completed;
+      return true;
+    })
+    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+
   return (
     <div className="App">
       <header>
@@ -65,15 +76,24 @@ function App() {
         </div>
 
         <div className="stats-grid">
-          <div className="stat-card">
+          <div
+            className={`stat-card ${filter === 'all' ? 'active' : ''}`}
+            onClick={() => setFilter('all')}
+          >
             <span>{stats.total}</span>
-            <label>Total</label>
+            <label>All</label>
           </div>
-          <div className="stat-card">
+          <div
+            className={`stat-card ${filter === 'pending' ? 'active' : ''}`}
+            onClick={() => setFilter('pending')}
+          >
             <span>{stats.pending}</span>
             <label>Pending</label>
           </div>
-          <div className="stat-card">
+          <div
+            className={`stat-card ${filter === 'completed' ? 'active' : ''}`}
+            onClick={() => setFilter('completed')}
+          >
             <span>{stats.completed}</span>
             <label>Done</label>
           </div>
@@ -89,11 +109,18 @@ function App() {
           </div>
         )}
 
-        <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+        <div className="action-area">
+          <button className="hero-add-btn" onClick={() => setIsFormOpen(true)}>
+            <span className="plus-icon">+</span>
+            <span className="btn-text">Add New Task</span>
+          </button>
+        </div>
 
-        <button className="fab" onClick={() => setIsFormOpen(true)}>
-          +
-        </button>
+        <div className="view-header">
+          <h2>{filter.charAt(0).toUpperCase() + filter.slice(1)} Feed</h2>
+        </div>
+
+        <TaskList tasks={sortedAndFilteredTasks} onToggle={handleToggle} onDelete={handleDelete} />
       </main>
     </div>
   )
