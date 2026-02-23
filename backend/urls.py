@@ -1,10 +1,18 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from django.shortcuts import redirect
+from django.http import JsonResponse
 
 def home(request):
-    return redirect("https://comfy-taffy-5f4130.netlify.app/")
+    return JsonResponse({
+        "status": "online",
+        "project": "TaskFlow API",
+        "version": "1.0.0",
+        "endpoints": {
+            "tasks": "/api/tasks/",
+            "admin": "/admin/"
+        }
+    })
 
 urlpatterns = [
     path("", home),
