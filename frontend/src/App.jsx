@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import { getTasks, createTask, updateTask, deleteTask } from './api'
 import TaskForm from './components/TaskForm'
 import TaskList from './components/TaskList'
-import './App.css'
+import { FileText, Plus, Search, X } from 'lucide-react'
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [filter, setFilter] = useState('all'); // all, pending, completed
+  const [editingTask, setEditingTask] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     fetchTasks();
@@ -22,106 +24,110 @@ function App() {
     }
   };
 
-  const handleAdd = async (taskData) => {
+  const showToast = (title, message) => {
+    setToast({ title, message });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleSave = async (taskData) => {
     try {
-      await createTask(taskData);
+      if (editingTask) {
+        await updateTask(editingTask.id, taskData);
+        showToast('Success!', 'Task updated successfully.');
+      } else {
+        await createTask(taskData);
+        showToast('Success!', 'Task created successfully.');
+      }
       fetchTasks();
+      setIsFormOpen(false);
+      setEditingTask(null);
     } catch (error) {
-      console.error("Error adding task:", error);
+      console.error("Error saving task:", error);
     }
   };
 
-  const handleToggle = async (task) => {
-    try {
-      await updateTask(task.id, { ...task, completed: !task.completed });
-      fetchTasks();
-    } catch (error) {
-      console.error("Error updating task:", error);
-    }
+  const handleEdit = (task) => {
+    setEditingTask(task);
+    setIsFormOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsFormOpen(false);
+    setEditingTask(null);
   };
 
   const handleDelete = async (id) => {
     try {
-      if (window.confirm("Are you sure?")) {
-        await deleteTask(id);
-        fetchTasks();
-      }
+      await deleteTask(id);
+      fetchTasks();
+      showToast('Deleted', 'Task has been removed.');
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
 
-  const stats = {
-    total: tasks.length,
-    completed: tasks.filter(t => t.completed).length,
-    pending: tasks.filter(t => !t.completed).length
-  };
-
-  const priorityOrder = { high: 0, medium: 1, low: 2 };
-
-  const sortedAndFilteredTasks = tasks
-    .filter(task => {
-      if (filter === 'pending') return !task.completed;
-      if (filter === 'completed') return task.completed;
-      return true;
-    })
-    .sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  const filteredTasks = tasks.filter(task =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (task.description && task.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
     <div className="App">
-      <header>
-        <div className="logo-section">
-          <h1>TaskFlow</h1>
-          <div className="status-badge">Live</div>
-        </div>
-
-        <div className="stats-grid">
-          <div
-            className={`stat-card ${filter === 'all' ? 'active' : ''}`}
-            onClick={() => setFilter('all')}
-          >
-            <span>{stats.total}</span>
-            <label>All</label>
+      <div className="panel">
+        <header>
+          <div className="header-title">
+            <FileText size={28} />
+            <h1>My Tasks ({tasks.length})</h1>
           </div>
-          <div
-            className={`stat-card ${filter === 'pending' ? 'active' : ''}`}
-            onClick={() => setFilter('pending')}
-          >
-            <span>{stats.pending}</span>
-            <label>Pending</label>
-          </div>
-          <div
-            className={`stat-card ${filter === 'completed' ? 'active' : ''}`}
-            onClick={() => setFilter('completed')}
-          >
-            <span>{stats.completed}</span>
-            <label>Done</label>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        {isFormOpen && (
-          <div className="modal-overlay" onClick={() => setIsFormOpen(false)}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
-              <TaskForm onAdd={(data) => { handleAdd(data); setIsFormOpen(false); }} />
-            </div>
-          </div>
-        )}
-
-        <div className="action-area">
-          <button className="hero-add-btn" onClick={() => setIsFormOpen(true)}>
-            <span className="plus-icon">+</span>
-            <span className="btn-text">Add New Task</span>
+          <button className="add-btn" onClick={() => setIsFormOpen(true)}>
+            <Plus size={18} />
+            Add Task
           </button>
-        </div>
+        </header>
 
-        <div className="view-header">
-          <h2>{filter.charAt(0).toUpperCase() + filter.slice(1)} Feed</h2>
+        <div className="search-container">
+          <Search size={22} />
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
+      </div>
 
-        <TaskList tasks={sortedAndFilteredTasks} onToggle={handleToggle} onDelete={handleDelete} />
-      </main>
+      <div className="panel">
+        {isFormOpen ? (
+          <div className="form-container">
+            <div className="form-header">
+              <h2>{editingTask ? 'Edit Task' : 'Create New Task'}</h2>
+              <button className="close-btn" onClick={handleCancel}>
+                <X size={24} />
+              </button>
+            </div>
+            <TaskForm
+              onSave={handleSave}
+              onCancel={handleCancel}
+              initialTask={editingTask}
+            />
+          </div>
+        ) : (
+          <TaskList
+            tasks={filteredTasks}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+            onAddClick={() => setIsFormOpen(true)}
+          />
+        )}
+      </div>
+
+      {toast && (
+        <div className="toast">
+          <h4>{toast.title}</h4>
+          <p>{toast.message}</p>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,42 +1,45 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Trash2, CheckCircle, Circle, Tag } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Trash2, Edit3, Clock } from 'lucide-react';
 
-function TaskItem({ task, onToggle, onDelete }) {
+function TaskItem({ task, onDelete, onEdit }) {
+    const formattedDate = new Date().toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric'
+    });
+    const formattedTime = new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+
     return (
         <motion.div
             layout
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className={`task-item priority-${task.priority} ${task.completed ? 'completed-task' : ''}`}
+            className={`task-card ${task.completed ? 'completed-task' : ''}`}
         >
-            <div className="category-tag">
-                <Tag size={12} style={{ marginRight: '4px', verticalAlign: 'middle' }} />
-                {task.category}
-            </div>
-
-            <div className="task-content">
-                <div className="task-title-group">
-                    <h3>{task.title}</h3>
-                    <p>{task.description}</p>
+            <div className="card-header">
+                <h3 className="card-title">{task.title}</h3>
+                <div className="card-actions">
+                    <button className="card-btn edit" title="Edit" onClick={() => onEdit(task)}>
+                        <Edit3 size={20} />
+                    </button>
+                    <button onClick={() => onDelete(task.id)} className="card-btn delete" title="Delete">
+                        <Trash2 size={20} />
+                    </button>
                 </div>
             </div>
 
-            <div className="task-actions">
-                <button
-                    onClick={() => onToggle(task)}
-                    className="action-btn complete-btn"
-                >
-                    {task.completed ? <CheckCircle size={18} /> : <Circle size={18} />}
-                    {task.completed ? 'Reopen' : 'Complete'}
-                </button>
-                <button
-                    onClick={() => onDelete(task.id)}
-                    className="action-btn delete-btn"
-                >
-                    <Trash2 size={18} />
-                    Delete
-                </button>
+            <div className="card-body">
+                {task.description && <p>{task.description}</p>}
+            </div>
+
+            <div className="card-footer">
+                <Clock size={16} />
+                <span>Updated {formattedDate}, {formattedTime}</span>
             </div>
         </motion.div>
     );

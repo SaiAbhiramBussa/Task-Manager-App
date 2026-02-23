@@ -1,24 +1,31 @@
 import { AnimatePresence } from 'framer-motion';
 import TaskItem from './TaskItem';
+import { FileText, Plus } from 'lucide-react';
 
-function TaskList({ tasks, onToggle, onDelete }) {
+function TaskList({ tasks, onDelete, onAddClick, onEdit }) {
     if (tasks.length === 0) {
         return (
-            <div style={{ textAlign: 'center', color: '#94a3b8', marginTop: '40px' }}>
-                <p>No tasks found. Time to relax! ☕</p>
+            <div className="empty-state">
+                <FileText size={48} />
+                <h2>No tasks yet</h2>
+                <p>Create your first task to get started.</p>
+                <button className="add-btn" onClick={onAddClick}>
+                    <Plus size={18} />
+                    Create Task
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="task-list">
-            <AnimatePresence>
+        <div className="task-grid">
+            <AnimatePresence mode="popLayout">
                 {tasks.map((task) => (
                     <TaskItem
                         key={task.id}
                         task={task}
-                        onToggle={onToggle}
                         onDelete={onDelete}
+                        onEdit={onEdit}
                     />
                 ))}
             </AnimatePresence>
