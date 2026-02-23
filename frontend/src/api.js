@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api/';
+const getBaseUrl = () => {
+    const envUrl = import.meta.env.VITE_API_URL;
+    if (envUrl) {
+        return envUrl.endsWith('/') ? envUrl : `${envUrl}/`;
+    }
+    return '/api/'; // Fallback for local proxy
+};
 
 const API = axios.create({
-    baseURL: API_URL,
+    baseURL: getBaseUrl(),
 });
 
 export const getTasks = () => API.get('tasks/');

@@ -5,87 +5,96 @@
 [![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Status](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge)](https://github.com/)
 
-**TaskFlow** is not just another task manager; it's a high-performance, full-stack application engineered for the modern mobile web. Built during a **Mobile App Developer Internship Assignment**, this project demonstrates a deep understanding of component architecture, API design, and responsive aesthetics.
+**TaskFlow** is a sophisticated, full-stack task management ecosystem designed for the modern web. Developed as a **Mobile App Developer Internship Assignment**, this project pushes the boundaries of traditional web apps by delivering a **Native-App Feel** through glassmorphic design, fluid animations, and a robust RESTful architecture.
 
 ---
 
 ## 🎯 The Vision
-Modern users expect speed and fluidity. TaskFlow delivers a "Native-App" feel within a browser environment, ensuring that whether you are on an **Android flagship** or the latest **iPhone**, the experience remains buttery smooth.
+In an era of instant gratification, TaskFlow focuses on **Performance** and **Experience**. By leveraging high-performance utility-first styling and optimized React state management, we ensure that managing tasks feels less like a chore and more like a seamless extension of your workflow.
 
 ---
 
 ## 🚀 Key Features
 
-- **⚡ Instant CRUD**: Add, View, Complete, and Delete tasks with zero-latency felt by the user.
-- **🎨 Modern Glassmorphism**: High-end UI with blurred surfaces and vibrant gradients.
-- **✨ Smooth Animations**: Fluid transitions powered by Framer Motion.
-- **🏷️ Smart Categorization**: Organize tasks with custom categories and priority levels (Low, Medium, High).
-- **📱 Mobile-Centric UX**: 
-  - **No-Zoom Inputs**: Optimized 16px typography for iOS.
-  - **Tactile Feedback**: Interactive button scaling on tap.
-  - **Clean UI**: A minimalist, high-contrast design that reduces cognitive load.
-- **🛡️ Robust Backend**: Powered by Django REST Framework with a focus on data integrity and clean API responses.
-- **🔗 Seamless Integration**: Frontend-Backend connection via Vite proxy for an industrial-standard development workflow.
+- **🎨 Modern Glassmorphism**: High-end UI featuring blurred surfaces, vibrant gradients, and a sleek dark-mode aesthetic.
+- **✨ Fluid Animations**: Powered by **Framer Motion**, including shared layout transitions and entry/exit presence.
+- **🏷️ Productive Logic**: 
+  - **Dynamic Priority**: Categorize tasks as Low, Medium, or High (visual-coded).
+  - **Smart Labels**: Tag tasks with custom categories (Work, Personal, Health).
+- **📱 Mobile-Native UX**: 
+  - **iOS Zoom Protection**: Input fields engineered with 16px typography to prevent unwanted browser auto-zooming.
+  - **Tactile Scaling**: Interactive components provide visual pressure feedback on touch.
+  - **Zero-Latency Feel**: Optimistic-style updates for an instant interaction response.
+- **🛡️ Secure Engineering**: 
+  - **Environment Isolation**: Sensitive keys (Secret Key, API URLs) are shielded via `.env` files.
+  - **Cross-Origin Security**: Configured CORS headers for secure production handshakes.
 
 ---
 
-## 🛠️ The Tech Stack
+## 🛠️ The Architecture
 
-- **Frontend Core**: React 18 + Vite (for lightning-fast HMR)
-- **API Engine**: Axios (centralized service architecture)
-- **Backend Powerhouse**: Django 6.0 + Django REST Framework
-- **State Logic**: React Hooks (`useState`, `useEffect`)
-- **Visual Identity**: Vanilla CSS (Zero Bloat, Maximum Performance)
+### **Frontend (The UI/UX)**
+- **React 18 + Vite**: Lightning-fast build and Hot Module Replacement (HMR).
+- **Framer Motion**: Advanced animation system.
+- **Lucide Icons**: Professional vector iconography.
+- **Axios Service**: Centralized API hub with dynamic environment detection.
+
+### **Backend (The Engine)**
+- **Django 6.0 + REST Framework**: Industry-standard data management.
+- **Python-Dotenv**: Security-first environment configuration.
+- **Gunicorn**: Production-grade WSGI HTTP Server.
+- **SQLite3**: Lightweight, portable data persistence.
 
 ---
 
-## � Getting Started (Clone & Run)
+## 📥 Getting Started (Clone & Run)
 
-Ready to see TaskFlow in action? Follow these steps to get your local environment running in minutes.
-
-### 1. Clone the Masterpiece
+### 1. Clone & Setup
 ```bash
 git clone https://github.com/YOUR_USERNAME/task-manager-mobile-app.git
 cd task-manager-mobile-app
 ```
 
-### 2. Ignition: The Backend (Django)
+### 2. Backend Ignition
 ```bash
 # Setup Environment
 python -m venv venv
 venv\Scripts\activate  # Windows
 source venv/bin/activate  # Mac/Linux
 
-# Setup Dependencies & Database
+# Install Dependencies
 pip install -r requirements.txt
 python manage.py migrate
 
-# Blast Off!
+# Create .env file in root
+# DJANGO_SECRET_KEY="your-secret-here"
+# DEBUG=True
+
+# Start Engine
 python manage.py runserver
 ```
 
-### 3. Launch: The Frontend (React)
+### 3. Frontend Launch
 ```bash
-# Open a new terminal tab
 cd frontend
-
-# Install & Launch
 npm install
 npm run dev
 ```
 
 ---
 
-## 💡 Engineering Assumptions & Design Decisions
-- **Consistency over Complexity**: Used Vanilla CSS to ensure 100% control over the mobile viewport behavior without the overhead of heavy frameworks.
-- **Security for Dev**: `CORS_ALLOW_ALL_ORIGINS` is enabled for ease of evaluation but is designed to be switched to restricted white-lists for production.
-- **User-First Actions**: Added a confirmation dialog for deletions to prevent unintended data loss—a critical UX consideration.
+## 💡 Pro-Level Implementation Details
+- **Dynamic API Routing**: The frontend automatically switches between a local Vite proxy and the production Render API based on the presence of `VITE_API_URL`.
+- **Systematic Hiding**: A strict `.gitignore` ensures that `.env`, `db.sqlite3`, and `node_modules` are never leaked to source control.
+- **Self-Healing Backend**: Added root-level redirects on the backend to guide users from the API endpoint directly to the Live UI.
 
 ---
 
-## � Contact / Submission Info
-- **Developer**: Sai Abhiram Bussa          
-- **Assignment**: Mobile App Developer Intern Assignment
-- **Live Demo**: 
+## 📬 Final Handover Info
+- **Developer**: Sai Abhiram Bussa
+- **Position**: Mobile App Developer Intern (Candidate)
+- **Live Application**: [https://comfy-taffy-5f4130.netlify.app/](https://comfy-taffy-5f4130.netlify.app/)
+- **Backend API**: [https://task-manager-app-vxhp.onrender.com/api/tasks/](https://task-manager-app-vxhp.onrender.com/api/tasks/)
 
 ---
+*Developed with Passion & Precision.*
