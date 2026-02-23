@@ -56,7 +56,8 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Task Manager</h1>
+        <h1>TaskFlow</h1>
+        <p>Stay organized, stay productive.</p>
       </header>
       <main>
         <TaskForm onAdd={handleAdd} />

@@ -17,6 +17,9 @@ Modern users expect speed and fluidity. TaskFlow delivers a "Native-App" feel wi
 ## 🚀 Key Features
 
 - **⚡ Instant CRUD**: Add, View, Complete, and Delete tasks with zero-latency felt by the user.
+- **🎨 Modern Glassmorphism**: High-end UI with blurred surfaces and vibrant gradients.
+- **✨ Smooth Animations**: Fluid transitions powered by Framer Motion.
+- **🏷️ Smart Categorization**: Organize tasks with custom categories and priority levels (Low, Medium, High).
 - **📱 Mobile-Centric UX**: 
   - **No-Zoom Inputs**: Optimized 16px typography for iOS.
   - **Tactile Feedback**: Interactive button scaling on tap.
