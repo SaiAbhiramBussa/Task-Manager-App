@@ -6,8 +6,8 @@ import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
-  // 1. Fetch tasks on load
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -21,17 +21,15 @@ function App() {
     }
   };
 
-  // 2. Add a task
   const handleAdd = async (taskData) => {
     try {
       await createTask(taskData);
-      fetchTasks(); // Refresh list
+      fetchTasks();
     } catch (error) {
       console.error("Error adding task:", error);
     }
   };
 
-  // 3. Toggle Complete
   const handleToggle = async (task) => {
     try {
       await updateTask(task.id, { ...task, completed: !task.completed });
@@ -41,7 +39,6 @@ function App() {
     }
   };
 
-  // 4. Delete Task
   const handleDelete = async (id) => {
     try {
       if (window.confirm("Are you sure?")) {
@@ -53,15 +50,50 @@ function App() {
     }
   };
 
+  const stats = {
+    total: tasks.length,
+    completed: tasks.filter(t => t.completed).length,
+    pending: tasks.filter(t => !t.completed).length
+  };
+
   return (
     <div className="App">
       <header>
-        <h1>TaskFlow</h1>
-        <p>Stay organized, stay productive.</p>
+        <div className="logo-section">
+          <h1>TaskFlow</h1>
+          <div className="status-badge">Live</div>
+        </div>
+
+        <div className="stats-grid">
+          <div className="stat-card">
+            <span>{stats.total}</span>
+            <label>Total</label>
+          </div>
+          <div className="stat-card">
+            <span>{stats.pending}</span>
+            <label>Pending</label>
+          </div>
+          <div className="stat-card">
+            <span>{stats.completed}</span>
+            <label>Done</label>
+          </div>
+        </div>
       </header>
+
       <main>
-        <TaskForm onAdd={handleAdd} />
+        {isFormOpen && (
+          <div className="modal-overlay" onClick={() => setIsFormOpen(false)}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
+              <TaskForm onAdd={(data) => { handleAdd(data); setIsFormOpen(false); }} />
+            </div>
+          </div>
+        )}
+
         <TaskList tasks={tasks} onToggle={handleToggle} onDelete={handleDelete} />
+
+        <button className="fab" onClick={() => setIsFormOpen(true)}>
+          +
+        </button>
       </main>
     </div>
   )

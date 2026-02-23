@@ -12,7 +12,8 @@
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
-  --glass: rgba(255, 255, 255, 0.03);
+  --glass: rgba(255, 255, 255, 0.05);
+  --input-bg: rgba(15, 23, 42, 0.8);
 }
 
 * {
@@ -43,8 +44,16 @@ header {
   margin-bottom: 40px;
 }
 
+header .logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
 header h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(to right, #a78bfa, #ec4899);
   -webkit-background-clip: text;
@@ -53,9 +62,46 @@ header h1 {
   letter-spacing: -1px;
 }
 
-header p {
+.status-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.stat-card label {
+  font-size: 0.75rem;
   color: var(--text-muted);
-  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 /* Glassmorphic Form */
@@ -67,7 +113,6 @@ header p {
   border-radius: 24px;
   border: 1px solid var(--border);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -78,10 +123,10 @@ textarea,
 select {
   width: 100%;
   padding: 14px 18px;
-  background: var(--glass);
+  background: var(--input-bg);
   border: 1px solid var(--border);
   border-radius: 14px;
-  color: white;
+  color: #ffffff !important;
   font-size: 16px;
   font-family: inherit;
   outline: none;
@@ -92,7 +137,7 @@ input:focus,
 textarea:focus,
 select:focus {
   border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.9);
   box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
 }
 
@@ -197,6 +242,9 @@ button[type="submit"]:hover {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .complete-btn {
@@ -219,4 +267,75 @@ button[type="submit"]:hover {
   text-decoration: line-through;
 }
 
-/* Animations using Framer Motion classes will be handled in JSX */
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-size: 30px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+}
+
+.fab:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 500px;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 12px 8px;
+  }
+
+  .stat-card span {
+    font-size: 1.25rem;
+  }
+}
