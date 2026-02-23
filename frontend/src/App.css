@@ -1,0 +1,140 @@
+/* Global Reset & Base Styles */
+:root {
+  --primary: #6366f1;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --success: #22c55e;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent; /* Removes blue flash on tap in iOS/Mobile */
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* App Container - Responsive Width */
+.App {
+  max-width: 500px; /* Limits width on desktop, full width on mobile */
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* Form Styling - Mobile Inputs */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin-bottom: 30px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 14px; /* Large for easy typing on mobile */
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px; /* Prevents auto-zoom on iOS */
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--primary);
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.98); /* Tactile feedback for touch */
+}
+
+/* Task Item Styling */
+.task-item {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  transition: opacity 0.3s;
+}
+
+.task-item.completed {
+  opacity: 0.6;
+}
+
+.task-item.completed h3 {
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+
+.task-item h3 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.task-item p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-actions button {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.delete-btn {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+/* Responsive Overrides */
+@media (max-width: 400px) {
+  .App {
+    padding: 15px;
+  }
+}
